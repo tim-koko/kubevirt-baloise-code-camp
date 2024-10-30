@@ -1,0 +1,13 @@
+apiVersion: "k8s.cni.cncf.io/v1"
+kind: NetworkAttachmentDefinition
+metadata:
+  name: bridge-network-br42
+  annotations:
+    k8s.v1.cni.cncf.io/resourceName: bridge.network.kubevirt.io/br42
+spec:
+  config: '{
+    "cniVersion": "0.3.1",
+    "name": "bridge-network-br42", 
+    "type": "cnv-bridge", 
+    "bridge": "br42"
+  }'

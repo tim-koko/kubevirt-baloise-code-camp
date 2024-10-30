@@ -1,0 +1,17 @@
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: DataVolume
+metadata:
+  name: talos182-nocloud
+  namespace: challer-talos-oemc01
+spec:
+  contentType: kubevirt
+  source:
+    http:
+      url: https://factory.talos.dev/image/2ed2e4794ba4c5fff3e18307516a15accd3c0d992408c0c9522d2d457a79429f/v1.8.2/nocloud-amd64.raw.xz
+  storage:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 2Gi
+    storageClassName: standard-csi-immediate

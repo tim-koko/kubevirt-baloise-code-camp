@@ -1,0 +1,60 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: talos-cp01
+  namespace: challer-talos-oemc01
+spec:
+  running: true
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        kubevirt.io/domain: talos-cp01
+        kubevirt.io/size: small
+    spec:
+      hostname: talos-cp01
+      architecture: amd64
+      domain:
+        devices:
+          disks:
+          - disk:
+              bus: virtio
+            name: talos-vda
+          - disk:
+              bus: virtio
+            name: talos-vdb
+          - disk:
+              bus: virtio
+            name: cloudinit
+          interfaces:
+          - bridge: {}
+            name: default
+          - bridge: {}
+            name: br42
+        machine:
+          type: q35
+        resources:
+          requests:
+            memory: 512M
+      networks:
+      - name: default
+        pod: {}
+      - name: br42
+        multus:
+          networkName: bridge-network-br42
+      nodeSelector:
+        kubernetes.io/arch: amd64
+        kubevirt.io/schedulable: "true"
+      volumes:
+      - name: talos-vda
+        persistentVolumeClaim:
+          claimName: talos182-nocloud
+      - name: talos-vdb
+        persistentVolumeClaim:
+          claimName: talos-cp01-data
+      - name: cloudinit
+        cloudInitNoCloud:
+          secretRef:
+            name: talos-cp01-userdata-cloudinit
+          networkDataSecretRef:
+            name: talos-cp01-network-cloudinit
