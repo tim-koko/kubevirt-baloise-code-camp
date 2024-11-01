@@ -12,6 +12,12 @@ spec:
         A dedicated OVS bridge with ens5 as a port
         allowing all VLANs and untagged traffic
       type: ovs-bridge
+      ipv4:
+        dhcp: false
+        enabled: true
+        address:
+        - ip: 10.42.0.10
+          prefix-length: 24
       state: up
       bridge:
         allow-extra-patch-ports: true

@@ -7,20 +7,23 @@ spec:
     cpu-feature.node.kubevirt.io/vmx: "true"
   desiredState:
     interfaces:
-    - name: ovs-br42
-      description: |-
-        A dedicated OVS bridge with ens5 as a port
-        allowing all VLANs and untagged traffic
-      type: ovs-bridge
-      state: absent
-      bridge:
-        allow-extra-patch-ports: true
+    - bridge:
         options:
-          stp: false
-        port:
-        - name: ens5
-    ovn:
-      bridge-mappings:
-      - bridge: ovs-br42
-        localnet: localnet-ovs-br42
-        state: absent
+          datapath: ""
+          fail-mode: ""
+          mcast-snooping-enable: false
+          rstp: false
+          stp:
+            enabled: false
+        port: []
+      name: ovs-br42
+      ovs-db:
+        external_ids: {}
+        other_config: {}
+      state: absent
+      type: ovs-bridge
+    #ovn:
+    #  bridge-mappings:
+    #  - bridge: ovs-br42
+    #    localnet: localnet-ovs-br42
+    #    state: absent

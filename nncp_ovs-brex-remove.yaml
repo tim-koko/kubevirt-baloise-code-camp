@@ -1,0 +1,13 @@
+apiVersion: nmstate.io/v1
+kind: NodeNetworkConfigurationPolicy
+metadata:
+  name: ovs-brex-policy
+spec:
+  nodeSelector:
+    cpu-feature.node.kubevirt.io/vmx: "true"
+  desiredState:
+    ovn:
+      bridge-mappings:
+      - localnet: localnet-ovs-br42
+        bridge: br-ex
+        state: absent
