@@ -8,7 +8,7 @@ network:
     subnets:
     - type: static
       address: 10.42.0.10
-      netmask: 255.255.255.0
+      netmask: 255.255.255.255
       gateway: 10.42.0.1
       dns_nameservers:
       - 1.1.1.1
